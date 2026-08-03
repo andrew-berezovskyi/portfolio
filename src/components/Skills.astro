@@ -1,0 +1,36 @@
+---
+const groups = [
+  { label: 'Core Languages', items: ['C#', 'C', 'Python'] },
+  { label: 'Web', items: ['TypeScript', 'JavaScript', 'HTML', 'CSS', 'Astro'] },
+  { label: 'Frameworks & Desktop', items: ['.NET', 'Windows Forms'] },
+  { label: 'Databases', items: ['MySQL', 'SQLite'] },
+  { label: 'Tools', items: ['Git', 'GitHub'] },
+  { label: 'Design & Engineering', items: ['UI/UX Fundamentals', 'Graphic Design', 'Circuit Concepts', 'AutoCAD'] },
+];
+---
+
+<section id="skills" class="py-24 border-t border-paper-border dark:border-graphite-border">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-10">
+      <span class="w-2 h-2 rounded-full bg-copper animate-tracePulse"></span>
+      <p class="section-label">Навички</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        groups.map((group) => (
+          <div class="card-surface p-5">
+            <p class="font-mono text-xs text-copper mb-3 uppercase tracking-wide">{group.label}</p>
+            <div class="flex flex-wrap gap-2">
+              {group.items.map((item) => (
+                <span class="px-2.5 py-1 rounded-md bg-paper-bg dark:bg-graphite-bg border border-paper-border dark:border-graphite-border text-xs font-mono text-paper-textPrimary dark:text-graphite-textPrimary">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

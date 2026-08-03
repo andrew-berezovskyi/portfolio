@@ -1,0 +1,57 @@
+---
+---
+
+<section class="relative min-h-screen flex items-center overflow-hidden bg-blueprint-grid bg-grid">
+  <!-- Технічні кутові дужки — натяк на креслення/схему -->
+  <div class="pointer-events-none absolute inset-6 md:inset-10 border border-copper/20 rounded-sm">
+    <span class="absolute -top-px -left-px w-4 h-4 border-t-2 border-l-2 border-copper"></span>
+    <span class="absolute -top-px -right-px w-4 h-4 border-t-2 border-r-2 border-copper"></span>
+    <span class="absolute -bottom-px -left-px w-4 h-4 border-b-2 border-l-2 border-copper"></span>
+    <span class="absolute -bottom-px -right-px w-4 h-4 border-b-2 border-r-2 border-copper"></span>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-6 w-full">
+    <p class="section-label mb-4">// portfolio.init()</p>
+
+    <h1 class="font-display font-semibold text-4xl sm:text-5xl md:text-6xl leading-tight">
+      Andrew Berezovskyi
+    </h1>
+
+    <p class="mt-4 font-mono text-lg md:text-xl text-copper h-8" id="role-rotator" aria-live="polite">
+      C# / .NET Developer<span class="animate-blink">_</span>
+    </p>
+
+    <p class="mt-6 max-w-xl text-paper-textMuted dark:text-graphite-textMuted leading-relaxed">
+      Пишу застосунки на C# та .NET — від десктопних систем з рольовим доступом
+      до веб-інтерфейсів на Astro. Люблю розбирати задачу на модулі та збирати
+      з них надійну систему. Зараз навчаюсь в КПІ за напрямом автоматизації та робототехніки.
+    </p>
+
+    <div class="mt-8 flex flex-wrap items-center gap-4">
+      <a
+        href="#projects"
+        class="px-5 py-3 bg-copper text-graphite-bg font-mono text-sm font-medium rounded-md hover:bg-copper-light transition-colors"
+      >
+        Переглянути проєкти
+      </a>
+      <a
+        href="#contact"
+        class="px-5 py-3 border border-paper-border dark:border-graphite-border font-mono text-sm rounded-md hover:border-copper transition-colors"
+      >
+        Зв'язатись
+      </a>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  const roles = ['C# / .NET Developer', 'Windows Forms Engineer', 'Automation & Robotics @ KPI'];
+  const el = document.getElementById('role-rotator');
+  let i = 0;
+  if (el && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(() => {
+      i = (i + 1) % roles.length;
+      el.innerHTML = roles[i] + '<span class="animate-blink">_</span>';
+    }, 2600);
+  }
+</script>

@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper-bg text-paper-textPrimary dark:bg-graphite-bg dark:text-graphite-textPrimary;
+    @apply font-body antialiased transition-colors duration-300;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  /* Видимий фокус для клавіатурної навігації — обов'язково для доступності */
+  a:focus-visible,
+  button:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-copper rounded-sm;
+  }
+
+  ::selection {
+    @apply bg-copper/30;
+  }
+}
+
+@layer components {
+  .section-label {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-copper;
+  }
+
+  .card-surface {
+    @apply bg-paper-surface dark:bg-graphite-surface border border-paper-border dark:border-graphite-border rounded-lg;
+  }
+}
+
+/* Респект до prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

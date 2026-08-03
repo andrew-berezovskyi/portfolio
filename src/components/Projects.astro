@@ -1,0 +1,21 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import { projects } from '../data/projects';
+---
+
+<section id="projects" class="py-24 border-t border-paper-border dark:border-graphite-border">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="w-2 h-2 rounded-full bg-copper animate-tracePulse"></span>
+      <p class="section-label">Проєкти</p>
+    </div>
+    <p class="text-paper-textMuted dark:text-graphite-textMuted max-w-xl mb-10">
+      Не всі проєкти завершені — і це нормально. "In progress" тут означає чесний
+      статус, а не привід ховати роботу.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,42 @@
+---
+const contacts = [
+  { label: 'Email', value: 'aa20062019aa@gmail.com', href: 'mailto:aa20062019aa@gmail.com' },
+  { label: 'Telegram', value: '@berez0vskyi', href: 'https://t.me/berez0vskyi' },
+  { label: 'Phone', value: '+380 66 679 7212', href: 'tel:+380666797212' },
+  { label: 'GitHub', value: 'github.com/...', href: '#' },
+  // TODO: встав реальний лінк на GitHub-профіль замість "#"
+];
+---
+
+<section id="contact" class="py-24 border-t border-paper-border dark:border-graphite-border">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="flex items-center gap-3 mb-6">
+      <span class="w-2 h-2 rounded-full bg-copper animate-tracePulse"></span>
+      <p class="section-label">Контакти</p>
+    </div>
+
+    <h2 class="font-display font-semibold text-3xl md:text-4xl max-w-xl mb-10">
+      Відкритий до пропозицій щодо стажування та junior-позицій у C#/.NET.
+    </h2>
+
+    <div class="grid sm:grid-cols-2 gap-4 max-w-2xl">
+      {
+        contacts.map((c) => (
+          <a
+            href={c.href}
+            target={c.href.startsWith('http') ? '_blank' : undefined}
+            rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            class="card-surface p-4 flex items-center justify-between hover:border-copper transition-colors group"
+          >
+            <span class="font-mono text-xs text-paper-textMuted dark:text-graphite-textMuted uppercase">
+              {c.label}
+            </span>
+            <span class="text-sm text-paper-textPrimary dark:text-graphite-textPrimary group-hover:text-copper transition-colors">
+              {c.value}
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
