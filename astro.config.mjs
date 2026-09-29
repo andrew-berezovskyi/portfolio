@@ -1,13 +1,15 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import react from '@astrojs/react';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  // TODO: коли купиш/матимеш домен — онови на нього.
-  // Поки що деплоїмо на Vercel, тож site можна лишити так:
-  site: 'https://andrew-berezovskyi.vercel.app',
-  integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
-  ],
+  integrations: [react()],
+  vite: {
+    plugins: [tailwindcss()],
+    // Development and production must not share optimized React runtimes.
+    cacheDir: process.argv.includes('build')
+      ? '.astro/vite-build'
+      : '.astro/vite-dev',
+  },
+  devToolbar: { enabled: false },
 });

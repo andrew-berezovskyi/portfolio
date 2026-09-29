@@ -1,29 +1,30 @@
 # Andrew Berezovskyi — Portfolio
 
-A personal portfolio built with Astro and Tailwind CSS. The home page has sections for the author, skills, projects, education, and contact details.
+A portfolio redesign built with Astro, React islands, TypeScript, Tailwind CSS, Motion and React Three Fiber. This is the first visual-review checkpoint, not the final release. See [DESIGN-REVIEW.md](DESIGN-REVIEW.md) for completed work and remaining scope.
 
 ## Run locally
 
-Install Node.js and npm, then run from the repository root:
+Use Node.js 24 LTS and npm, then run from the repository root:
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-The terminal prints the local URL (usually `http://localhost:4321`). Use `npm run build` for a static build and `npm run preview` to inspect that build locally.
+The terminal prints the local URL (usually `http://localhost:4321`). English is at `/`; Ukrainian is at `/uk/`. Use `npm run build` for type checking and a static build, then `npm run preview` to inspect the production build. Stop the dev server before building to avoid sharing Vite optimizer caches across environments.
 
 ## Where to edit content
 
-- `src/pages/index.astro` — order of home page sections.
-- `src/components/` — sections and their content.
-- `src/data/projects.ts` — project cards, technologies, and links.
-- `src/layouts/Layout.astro` — shared page layout.
-- `src/styles/` and `tailwind.config.mjs` — styles and theme.
+- `src/components/Portfolio.astro` — static sections and translated copy.
+- `src/components/interactive/` — keyboard and project demonstrations.
+- `src/data/workspace.ts` — technologies, featured projects and source links.
+- `src/styles/workspace.css` — responsive styles and reduced-motion handling.
 - `public/` — static assets.
 
-`src/data/projects.ts` still contains a placeholder second project and `#` links for the first one. Replace those with current information before presenting the portfolio publicly. For a project screenshot, add an image under `public/projects/` and set `image` to a path such as `/projects/example.png`. Cards without images use a placeholder.
+The laptop demos are interactive simulations, clearly labeled as such. They do not run the original projects, make API calls, send messages or publish media. The WebGL scene has a lazy-loaded bundle and a CSS fallback; it does not block the static page.
 
 ## Deploy
 
-`npm run build` writes static output to `dist/`. Host those files on a static hosting service or connect the repository to a platform that runs the npm build.
+`npm run build` writes static output to `dist/`. The final public domain and hosting connection still need verification. No live deployment is implied by a successful build or a GitHub push.
+
+The previous design is preserved in `backup/pre-redesign-2026-09-29`.
