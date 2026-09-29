@@ -80,7 +80,6 @@ export default function SkillsIsland({ lang }: { lang: Lang }) {
           <p>{skills[active].detail[lang === 'uk' ? 1 : 0]}</p>
           <span className="mono muted">↳ {skills[active].project}</span>
         </div>
-        <span className="detail-arrow">↗</span>
       </div>
       <div
         className="skill-selector"

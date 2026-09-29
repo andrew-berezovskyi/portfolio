@@ -21,15 +21,17 @@ function Keycap({
     canvas.width = 256;
     canvas.height = 256;
     const context = canvas.getContext('2d')!;
-    context.fillStyle = '#ffffff';
-    context.font = 'bold 83px Arial';
+    context.fillStyle = ['C#', '.NET', 'Django'].includes(skill.name)
+      ? '#ffffff'
+      : '#10242b';
+    context.font = 'bold 92px Arial';
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.fillText(skill.mark, 128, 126);
     const map = new THREE.CanvasTexture(canvas);
     map.colorSpace = THREE.SRGBColorSpace;
     return map;
-  }, [skill.mark]);
+  }, [skill.mark, skill.name]);
   useEffect(() => () => texture.dispose(), [texture]);
   useFrame((_, delta) => {
     if (ref.current)
@@ -70,6 +72,7 @@ function Keycap({
         <planeGeometry args={[0.75, 0.75]} />
         <meshBasicMaterial
           map={texture}
+          toneMapped={false}
           transparent
           depthWrite={false}
           polygonOffset
@@ -162,9 +165,13 @@ export default function KeyboardScene({
         frameloop={visible ? 'always' : 'never'}
         gl={{ antialias: true, alpha: true, powerPreference: 'low-power' }}
       >
-        <ambientLight intensity={1.5} />
-        <directionalLight position={[-3, 7, 5]} intensity={3} />
-        <directionalLight position={[5, 2, -3]} intensity={2} color="#b3c6ff" />
+        <ambientLight intensity={0.9} />
+        <directionalLight position={[-3, 7, 5]} intensity={2} />
+        <directionalLight
+          position={[5, 2, -3]}
+          intensity={0.8}
+          color="#b3c6ff"
+        />
         <Board active={active} onSelect={onSelect} />
       </Canvas>
     </div>

@@ -3,6 +3,7 @@ import '@fontsource-variable/manrope';
 import '@fontsource/ibm-plex-mono/400.css';
 import '../styles/workspace.css';
 import SkillsIsland from './interactive/SkillsIsland';
+import ContactLinks from './interactive/ContactLinks';
 import ProjectShowcase from './interactive/ProjectShowcase';
 import { github, certificate, type Lang } from '../data/workspace';
 interface Props {
@@ -42,11 +43,8 @@ const t = (en: string, ua: string) => (uk ? ua : en);
         ab<span>®</span>
       </a>
       <nav aria-label={t('Main navigation', 'Основна навігація')}>
-        <a href="#work">
-          {t('Work', 'Проєкти')}
-          <span>05</span>
-        </a>
-        <a href="#skills">{t('Stack', 'Навички')}</a>
+        <a href="#work">{t('Work', 'Проєкти')}</a>
+        <a href="#skills">{t('Skills', 'Навички')}</a>
         <a href="#about">{t('About', 'Про мене')}</a>
       </nav>
       <div class="header-right">
@@ -59,6 +57,13 @@ const t = (en: string, ua: string) => (uk ? ua : en);
             UA
           </a>
         </div>
+        <button
+          class="resume-nav"
+          disabled
+          title={t('PDF résumé coming soon', 'PDF резюме буде додано пізніше')}
+        >
+          {t('Résumé', 'Резюме')} ↓ <small>{t('soon', 'згодом')}</small>
+        </button>
         <a class="contact-nav" href="#contact">
           {t('Let’s talk', 'Написати')} <span>↗</span>
         </a>
@@ -66,13 +71,6 @@ const t = (en: string, ua: string) => (uk ? ua : en);
     </header>
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-topline">
-          <span class="availability">
-            <i></i>
-            {t('OPEN TO OPPORTUNITIES', 'ВІДКРИТИЙ ДО ПРОПОЗИЦІЙ')}
-          </span>
-          <span class="mono muted">KYIV, UKRAINE / 50.45° N</span>
-        </div>
         <div class="hero-heading">
           <p class="eyebrow">
             {t(
@@ -94,22 +92,19 @@ const t = (en: string, ua: string) => (uk ? ua : en);
               <br />
               <strong>{t('things that work.', 'речі, що працюють.')}</strong>
             </p>
-            <span class="mono muted">
-              C# / .NET &nbsp; · &nbsp; WEB & SYSTEMS
-            </span>
           </div>
           <a
             class="round-link"
             href="#work"
             aria-label={t('Explore selected work', 'Переглянути проєкти')}
           >
-            <span>↘</span>
+            <span aria-hidden="true">↓</span>
+            <small>{t('Explore work', 'До проєктів')}</small>
           </a>
           <p class="hero-aside">
             {t('From the first line of code', 'Від першого рядка коду')}
             <br />
             {t('to the last little detail.', 'до останньої маленької деталі.')}
-            <span class="mono">{t('SCROLL TO EXPLORE', 'ГОРТАЙ ДАЛІ')} ↓</span>
           </p>
         </div>
         <div class="hero-key" aria-hidden="true">
@@ -117,15 +112,6 @@ const t = (en: string, ua: string) => (uk ? ua : en);
           <small>enter</small>
         </div>
       </section>
-      <div class="ticker" aria-hidden="true">
-        <span>SOFTWARE WITH INTENTION</span>
-        <i>✳</i>
-        <span>BUILT TO BE USED</span>
-        <i>✳</i>
-        <span>ALWAYS EXPLORING</span>
-        <i>✳</i>
-        <span>SOFTWARE WITH INTENTION</span>
-      </div>
       <section
         id="skills"
         class="skills-section section-shell"
@@ -219,8 +205,25 @@ const t = (en: string, ua: string) => (uk ? ua : en);
           target="_blank"
           rel="noreferrer"
         >
-          <span class="cert-seal">
-            C#<small>FOUNDATIONS</small>
+          <span class="credential-art" aria-hidden="true">
+            <span class="microsoft-brand">
+              <svg viewBox="0 0 23 23">
+                <path fill="#f25022" d="M0 0h11v11H0z" />
+                <path fill="#7fba00" d="M12 0h11v11H12z" />
+                <path fill="#00a4ef" d="M0 12h11v11H0z" />
+                <path fill="#ffb900" d="M12 12h11v11H12z" />
+              </svg>
+              Microsoft
+            </span>
+            <span class="credential-symbol">
+              C<span>#</span>
+            </span>
+            <span class="credential-rule"></span>
+            <span class="credential-caption">
+              FOUNDATIONAL C#
+              <br />
+              freeCodeCamp × Microsoft
+            </span>
           </span>
           <span class="cert-info">
             <span class="eyebrow">FREECODECAMP × MICROSOFT</span>
@@ -241,9 +244,7 @@ const t = (en: string, ua: string) => (uk ? ua : en);
         <h2>
           {t('Have something', 'Є цікава')}
           <br />
-          <a href="mailto:aa20062019aa@gmail.com">
-            {t('in mind?', 'ідея?')} <span>↗</span>
-          </a>
+          {t('in mind?', 'ідея?')}
         </h2>
         <div class="contact-bottom">
           <p>
@@ -254,15 +255,7 @@ const t = (en: string, ua: string) => (uk ? ua : en);
             <br />
             {t('My inbox is open.', 'Буду радий поспілкуватися.')}
           </p>
-          <div>
-            <a href="mailto:aa20062019aa@gmail.com">Email ↗</a>
-            <a href="https://t.me/berez0vskyi" target="_blank" rel="noreferrer">
-              Telegram ↗
-            </a>
-            <a href={github} target="_blank" rel="noreferrer">
-              GitHub ↗
-            </a>
-          </div>
+          <ContactLinks client:visible lang={lang} />
         </div>
       </section>
     </main>

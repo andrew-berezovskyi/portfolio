@@ -195,7 +195,7 @@ export const projects = [
   },
   {
     id: 'bot',
-    title: 'VibeRush',
+    title: 'YouTubeBot',
     category: 'AUTOMATION / PIPELINE',
     number: '05',
     color: '#e58fa5',

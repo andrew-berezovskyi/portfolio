@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useRef, useState, type CSSProperties } from 'react';
 import {
   motion,
   useReducedMotion,
@@ -9,24 +9,52 @@ import { github, projects, type Lang } from '../../data/workspace';
 
 function HotelDemo({ uk }: { uk: boolean }) {
   const [booked, setBooked] = useState(false);
+  const [view, setView] = useState(0);
   return (
     <div className="hotel-demo">
       <aside>
         <strong>
           H<span>KYIV</span>
         </strong>
-        <span className="demo-nav-selected">◫ {uk ? 'Огляд' : 'Overview'}</span>
-        <span>▦ {uk ? 'Номери' : 'Rooms'}</span>
-        <span>◷ {uk ? 'Бронювання' : 'Reservations'}</span>
-        <span>▥ {uk ? 'Звіти' : 'Reports'}</span>
+        {(uk
+          ? ['Огляд', 'Номери', 'Бронювання', 'Звіти']
+          : ['Overview', 'Rooms', 'Reservations', 'Reports']
+        ).map((label, i) => (
+          <button
+            key={label}
+            className={view === i ? 'demo-nav-selected' : ''}
+            aria-pressed={view === i}
+            onClick={() => setView(i)}
+          >
+            {label}
+          </button>
+        ))}
         <small>DEMO WORKSPACE</small>
       </aside>
       <div className="hotel-content">
         <div className="demo-top">
-          <span>WORKSPACE / OVERVIEW</span>
+          <span>
+            WORKSPACE / {['OVERVIEW', 'ROOMS', 'RESERVATIONS', 'REPORTS'][view]}
+          </span>
           <span>AB ◉</span>
         </div>
-        <h3>{uk ? 'Гарного дня, Andrew.' : 'Good afternoon, Andrew.'}</h3>
+        <h3>
+          {
+            (uk
+              ? [
+                  'Гарного дня, Andrew.',
+                  'Керування номерами',
+                  'Бронювання гостей',
+                  'Звіт за сьогодні',
+                ]
+              : [
+                  'Good afternoon, Andrew.',
+                  'Room management',
+                  'Guest reservations',
+                  'Today’s report',
+                ])[view]
+          }
+        </h3>
         <p>{uk ? 'Усе під контролем.' : 'A clear view of your hotel.'}</p>
         <div className="demo-stats">
           <div>
@@ -48,20 +76,44 @@ function HotelDemo({ uk }: { uk: boolean }) {
             <span>{uk ? 'готові для гостей' : 'ready for guests'}</span>
           </div>
         </div>
-        <div className="occupancy-chart">
-          <div>
-            <strong>{uk ? 'Цей тиждень' : 'This week'}</strong>
-            <span>● {uk ? 'Зайнятість' : 'Occupancy'}</span>
-          </div>
-          <div className="bars">
-            {[45, 63, 51, 78, 68, 90, 75].map((v, i) => (
-              <div key={i}>
-                <i style={{ height: `${v}%` }} />
-                <span>{['M', 'T', 'W', 'T', 'F', 'S', 'S'][i]}</span>
+        {view === 1 || view === 2 ? (
+          <div className="room-list">
+            {[
+              ['204', 'Deluxe', booked],
+              ['205', 'Standard', false],
+              ['301', 'Suite', true],
+            ].map(([room, type, occupied]) => (
+              <div key={String(room)}>
+                <b>{room}</b>
+                <span>{type}</span>
+                <span>
+                  {occupied
+                    ? uk
+                      ? 'Зайнятий'
+                      : 'Occupied'
+                    : uk
+                      ? 'Вільний'
+                      : 'Available'}
+                </span>
               </div>
             ))}
           </div>
-        </div>
+        ) : (
+          <div className="occupancy-chart">
+            <div>
+              <strong>{uk ? 'Цей тиждень' : 'This week'}</strong>
+              <span>● {uk ? 'Зайнятість' : 'Occupancy'}</span>
+            </div>
+            <div className="bars">
+              {[45, 63, 51, 78, 68, 90, 75].map((v, i) => (
+                <div key={i}>
+                  <i style={{ height: `${v}%` }} />
+                  <span>{['M', 'T', 'W', 'T', 'F', 'S', 'S'][i]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         <div className="demo-action-row">
           <span>
             <b>204</b> · Deluxe room{' '}
@@ -93,6 +145,7 @@ function HotelDemo({ uk }: { uk: boolean }) {
 function OsDemo({ uk }: { uk: boolean }) {
   const [open, setOpen] = useState(true);
   const [calc, setCalc] = useState(false);
+  const [number, setNumber] = useState('32');
   return (
     <div className="os-demo">
       <div className="os-top">
@@ -135,8 +188,21 @@ function OsDemo({ uk }: { uk: boolean }) {
           </div>
           {calc ? (
             <div className="calc-output">
-              <small>32 × 1024</small>
-              <strong>32768</strong>
+              <label>
+                {uk ? 'Кілобайти → байти' : 'Kilobytes → bytes'}
+                <input
+                  type="number"
+                  min="0"
+                  max="1000000"
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
+                />
+              </label>
+              <strong>
+                {number !== '' && Number.isFinite(Number(number))
+                  ? Number(number) * 1024
+                  : '—'}
+              </strong>
               <p>
                 {uk
                   ? 'Ілюстрація застосунку ОС'
@@ -182,7 +248,7 @@ function OsDemo({ uk }: { uk: boolean }) {
   );
 }
 function WorkshopDemo({ uk }: { uk: boolean }) {
-  const [joined, setJoined] = useState(false);
+  const [joined, setJoined] = useState<number[]>([]);
   return (
     <div className="workshop-demo">
       <div className="workshop-nav">
@@ -215,24 +281,26 @@ function WorkshopDemo({ uk }: { uk: boolean }) {
             <small>{['TECHNOLOGY', 'BACKEND', 'DESIGN'][i]}</small>
             <h4>{name}</h4>
             <p>
-              {i === 0 && joined ? '5' : '6'}{' '}
+              {joined.includes(i) ? '5' : '6'}{' '}
               {uk ? 'місць · Онлайн' : 'seats left · Online'}
             </p>
-            {i === 0 ? (
-              <button onClick={() => setJoined(!joined)}>
-                {joined
-                  ? uk
-                    ? 'Скасувати участь ✓'
-                    : 'Cancel reservation ✓'
-                  : uk
-                    ? 'Долучитися ↗'
-                    : 'Reserve a seat ↗'}
-              </button>
-            ) : (
-              <span className="workshop-static">
-                {uk ? 'Приклад воркшопу' : 'Sample workshop'}
-              </span>
-            )}
+            <button
+              onClick={() =>
+                setJoined((previous) =>
+                  previous.includes(i)
+                    ? previous.filter((value) => value !== i)
+                    : [...previous, i],
+                )
+              }
+            >
+              {joined.includes(i)
+                ? uk
+                  ? 'Скасувати участь ✓'
+                  : 'Cancel reservation ✓'
+                : uk
+                  ? 'Долучитися ↗'
+                  : 'Reserve a seat ↗'}
+            </button>
           </div>
         ))}
       </div>
@@ -241,6 +309,17 @@ function WorkshopDemo({ uk }: { uk: boolean }) {
 }
 function ApiDemo({ uk }: { uk: boolean }) {
   const [response, setResponse] = useState(false);
+  const [hour, setHour] = useState('10');
+  const rate =
+    Number(hour) < 9
+      ? 0.9
+      : Number(hour) < 12
+        ? 1
+        : Number(hour) < 14
+          ? 1.15
+          : Number(hour) < 18
+            ? 1
+            : 0.8;
   return (
     <div className="api-demo">
       <div className="api-top">
@@ -250,6 +329,28 @@ function ApiDemo({ uk }: { uk: boolean }) {
       <h3>
         {uk ? 'Наступна зустріч — простіше.' : 'Your next meeting, sorted.'}
       </h3>
+      <div className="pricing-demo">
+        <label>
+          {uk ? 'Зал A · 1 година' : 'Room A · 1 hour'}
+          <select
+            value={hour}
+            onChange={(e) => setHour(e.target.value)}
+            aria-label={uk ? 'Час початку' : 'Start time'}
+          >
+            {['7', '10', '12', '16', '19'].map((h) => (
+              <option key={h} value={h}>
+                {h.padStart(2, '0')}:00
+              </option>
+            ))}
+          </select>
+        </label>
+        <strong>{Math.round(2000 * rate)} UAH</strong>
+        <small>
+          {uk
+            ? 'Локальний розрахунок за тарифами репозиторію'
+            : 'Local calculation using repository pricing rules'}
+        </small>
+      </div>
       <div className="api-request">
         <b>GET</b>
         <code>/api/v1/rooms</code>
@@ -282,6 +383,7 @@ function ApiDemo({ uk }: { uk: boolean }) {
 }
 function PipelineDemo({ uk }: { uk: boolean }) {
   const [step, setStep] = useState(0);
+  const [decision, setDecision] = useState('');
   const names = uk
     ? ['Пошук', 'Перевірка', 'OCR', 'Перегляд', 'Черга']
     : ['Discover', 'Screen', 'OCR check', 'Review', 'Queue'];
@@ -289,7 +391,7 @@ function PipelineDemo({ uk }: { uk: boolean }) {
     <div className="pipeline-demo">
       <div className="api-top">
         <b>
-          VibeRush<span> / studio</span>
+          YouTubeBot<span> / studio</span>
         </b>
         <small>HUMAN IN THE LOOP</small>
       </div>
@@ -335,6 +437,26 @@ function PipelineDemo({ uk }: { uk: boolean }) {
                 ])[step]
           }
         </p>
+        {step === 3 && (
+          <div className="review-actions">
+            <button
+              onClick={() => {
+                setDecision(uk ? 'Демоматеріал схвалено' : 'Sample approved');
+                setStep(4);
+              }}
+            >
+              {uk ? 'Схвалити' : 'Approve'}
+            </button>
+            <button
+              onClick={() =>
+                setDecision(uk ? 'Демоматеріал відхилено' : 'Sample rejected')
+              }
+            >
+              {uk ? 'Відхилити' : 'Reject'}
+            </button>
+          </div>
+        )}
+        {decision && <p role="status">{decision}</p>}
       </div>
     </div>
   );
@@ -342,68 +464,30 @@ function PipelineDemo({ uk }: { uk: boolean }) {
 export default function ProjectShowcase({ lang }: { lang: Lang }) {
   const uk = lang === 'uk';
   const [active, setActive] = useState(0);
-  const manualSelection = useRef(false);
   const container = useRef<HTMLDivElement>(null);
+  const dialog = useRef<HTMLDialogElement>(null);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start start', 'end end'],
   });
   const tilt = useTransform(scrollYProgress, [0, 0.16, 0.88, 1], [7, 0, 0, -2]);
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      if (
-        manualSelection.current ||
-        !container.current ||
-        !matchMedia('(min-width: 900px)').matches ||
-        reduced
-      )
-        return;
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        if (manualSelection.current || !container.current) return;
-        const rect = container.current.getBoundingClientRect();
-        const distance = rect.height - window.innerHeight;
-        const value = distance > 0 ? -rect.top / distance : 0;
-        setActive(
-          Math.max(
-            0,
-            Math.min(projects.length - 1, Math.floor(value * projects.length)),
-          ),
-        );
-      });
-    };
-    const resumeScroll = () => {
-      manualSelection.current = false;
-    };
-    const resumeKeyboard = (event: KeyboardEvent) => {
-      if (
-        ['PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(
-          event.key,
-        )
-      )
-        resumeScroll();
-    };
-    window.addEventListener('wheel', resumeScroll, { passive: true });
-    window.addEventListener('touchmove', resumeScroll, { passive: true });
-    window.addEventListener('keydown', resumeKeyboard);
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-      window.removeEventListener('wheel', resumeScroll);
-      window.removeEventListener('touchmove', resumeScroll);
-      window.removeEventListener('keydown', resumeKeyboard);
-    };
-  }, [reduced]);
   const select = (index: number) => {
-    manualSelection.current = true;
     setActive(index);
   };
   const project = projects[active];
+  const demo = () =>
+    active === 0 ? (
+      <HotelDemo uk={uk} />
+    ) : active === 1 ? (
+      <OsDemo uk={uk} />
+    ) : active === 2 ? (
+      <WorkshopDemo uk={uk} />
+    ) : active === 3 ? (
+      <ApiDemo uk={uk} />
+    ) : (
+      <PipelineDemo uk={uk} />
+    );
   return (
     <div
       ref={container}
@@ -445,7 +529,12 @@ export default function ProjectShowcase({ lang }: { lang: Lang }) {
                     <i />
                   </span>
                   <small>andrew.workspace / {project.id}</small>
-                  <span>↗</span>
+                  <button
+                    onClick={() => dialog.current?.showModal()}
+                    aria-label={uk ? 'Розгорнути демонстрацію' : 'Expand demo'}
+                  >
+                    ⛶
+                  </button>
                 </div>
                 <div className="screen-app" key={project.id}>
                   {active === 0 ? (
@@ -480,6 +569,49 @@ export default function ProjectShowcase({ lang }: { lang: Lang }) {
               : 'Illustrative UI · Not the original application'}
           </span>
         </div>
+        <button
+          className="expand-demo"
+          onClick={() => dialog.current?.showModal()}
+        >
+          ⛶ {uk ? 'Відкрити великий деморежим' : 'Open full-size demo'}
+        </button>
+        <dialog
+          ref={dialog}
+          className="demo-dialog"
+          aria-labelledby="demo-dialog-title"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) dialog.current?.close();
+          }}
+        >
+          <header>
+            <div>
+              <h2 id="demo-dialog-title">{project.title}</h2>
+              <p>
+                {uk
+                  ? 'Локальна симуляція · зміни не зберігаються'
+                  : 'Local simulation · changes are not saved'}
+              </p>
+            </div>
+            <button autoFocus onClick={() => dialog.current?.close()}>
+              {uk ? 'Закрити' : 'Close'} ×
+            </button>
+          </header>
+          <div className="expanded-screen screen-app" key={project.id}>
+            {demo()}
+          </div>
+          <p className="dialog-note">
+            {uk
+              ? 'Демонстрація сценаріїв, не оригінальний застосунок. На телефоні гортай екран убік.'
+              : 'A workflow demonstration, not the original application. On mobile, swipe the screen sideways.'}{' '}
+            <a
+              href={`${github}/${project.repo}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub ↗
+            </a>
+          </p>
+        </dialog>
         <div className="project-description" aria-live="polite">
           <div>
             <span className="eyebrow">
