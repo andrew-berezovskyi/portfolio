@@ -12,6 +12,10 @@ interface Props {
 const { lang } = Astro.props;
 const uk = lang === 'uk';
 const t = (en: string, ua: string) => (uk ? ua : en);
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const localPath = (path = '') => `${base}${path.replace(/^\//, '')}`;
 ---
 
 <!doctype html>
@@ -28,7 +32,7 @@ const t = (en: string, ua: string) => (uk ? ua : en);
         'C# / .NET розробник. Досліджую світ застосунків, систем і вебу. Вибрані проєкти Andrew Berezovskyi.',
       )}
     />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={localPath('favicon.svg')} />
   </head>
   <body>
     <a class="skip-link" href="#main">
@@ -37,7 +41,7 @@ const t = (en: string, ua: string) => (uk ? ua : en);
     <header class="site-header">
       <a
         class="wordmark"
-        href={uk ? '/uk/' : '/'}
+        href={uk ? localPath('uk/') : localPath()}
         aria-label="Andrew Berezovskyi home"
       >
         ab<span>®</span>
@@ -49,11 +53,11 @@ const t = (en: string, ua: string) => (uk ? ua : en);
       </nav>
       <div class="header-right">
         <div class="languages">
-          <a href="/" aria-current={!uk ? 'page' : undefined}>
+          <a href={localPath()} aria-current={!uk ? 'page' : undefined}>
             EN
           </a>
           <span>/</span>
-          <a href="/uk/" aria-current={uk ? 'page' : undefined}>
+          <a href={localPath('uk/')} aria-current={uk ? 'page' : undefined}>
             UA
           </a>
         </div>

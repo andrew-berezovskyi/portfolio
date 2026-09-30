@@ -1,6 +1,12 @@
 # Andrew Berezovskyi — Portfolio
 
-A portfolio redesign built with Astro, React islands, TypeScript, Tailwind CSS, Motion and React Three Fiber. This is the first visual-review checkpoint, not the final release. See [DESIGN-REVIEW.md](DESIGN-REVIEW.md) for completed work and remaining scope.
+A bilingual portfolio built with Astro, React islands, TypeScript, Tailwind CSS, Motion and React Three Fiber.
+
+## Live site
+
+[andrew-berezovskyi.github.io/portfolio](https://andrew-berezovskyi.github.io/portfolio/)
+
+Every push to `main` is checked, built and deployed automatically through GitHub Actions and GitHub Pages.
 
 ## Run locally
 
@@ -25,6 +31,6 @@ The laptop demos are interactive simulations, clearly labeled as such. They do n
 
 ## Deploy
 
-`npm run build` writes static output to `dist/`. The final public domain and hosting connection still need verification. No live deployment is implied by a successful build or a GitHub push.
+`npm run build` writes static output to `dist/`. Deployment is handled by `.github/workflows/deploy.yml` using the official Astro action and GitHub Pages.
 
 The previous design is preserved in `backup/pre-redesign-2026-09-29`.
