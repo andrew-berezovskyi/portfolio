@@ -8,6 +8,7 @@ import {
   type CSSProperties,
 } from 'react';
 import { skills, type Lang } from '../../data/workspace';
+import SkillIcon from './SkillIcon';
 const KeyboardScene = lazy(() => import('./KeyboardScene'));
 
 class SceneBoundary extends Component<
@@ -40,12 +41,12 @@ export default function SkillsIsland({ lang }: { lang: Lang }) {
   const fallback = (
     <div className="keyboard-fallback" aria-hidden="true">
       <div>
-        {skills.map((skill) => (
+        {skills.map((skill, index) => (
           <span
             key={skill.name}
             style={{ '--key-color': skill.color } as CSSProperties}
           >
-            {skill.mark}
+            <SkillIcon index={index} />
           </span>
         ))}
       </div>
@@ -93,7 +94,9 @@ export default function SkillsIsland({ lang }: { lang: Lang }) {
             onClick={() => setActive(i)}
             style={{ '--key-color': s.color } as CSSProperties}
           >
-            <span>{s.mark}</span>
+            <span>
+              <SkillIcon index={i} />
+            </span>
             {s.name}
           </button>
         ))}

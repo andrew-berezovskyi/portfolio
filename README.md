@@ -17,7 +17,7 @@ npm ci
 npm run dev
 ```
 
-The terminal prints the local URL (usually `http://localhost:4321`). English is at `/`; Ukrainian is at `/uk/`. Use `npm run build` for type checking and a static build, then `npm run preview` to inspect the production build. Stop the dev server before building to avoid sharing Vite optimizer caches across environments.
+The terminal prints the local URL (usually `http://localhost:4321/portfolio/`). English is at `/portfolio/`; Ukrainian is at `/portfolio/uk/`. Use `npm run build` for type checking and a static build, then `npm run preview` to inspect the production build. Development and production builds use separate Vite caches.
 
 ## Where to edit content
 
@@ -26,6 +26,9 @@ The terminal prints the local URL (usually `http://localhost:4321`). English is 
 - `src/data/workspace.ts` — technologies, featured projects and source links.
 - `src/styles/workspace.css` — responsive styles and reduced-motion handling.
 - `public/` — static assets.
+- `public/andrew-berezovskyi-cv.pdf` — the original supplied CV, downloaded from the header in both languages. Replace this file to update the CV.
+
+Technology marks use selectively bundled [Simple Icons](https://simpleicons.org/) SVG paths. The C# key uses a typographic label. Contact links include Gmail compose (requires a Gmail account), Telegram, GitHub and LinkedIn; the email address can also be copied for use with any mail provider.
 
 The laptop demos are interactive simulations, clearly labeled as such. They do not run the original projects, make API calls, send messages or publish media. The WebGL scene has a lazy-loaded bundle and a CSS fallback; it does not block the static page.
 

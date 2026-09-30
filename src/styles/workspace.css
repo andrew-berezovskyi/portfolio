@@ -3,6 +3,135 @@
   --font-sans: 'Manrope Variable', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 }
+/* Tactile navigation, unified actions and the keyboard's silver title. */
+.site-header nav a {
+  position: relative;
+  padding: 10px 0;
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+.site-header nav a::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 3px;
+  height: 2px;
+  background: var(--acid);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+.site-header nav a:is(:hover, :focus-visible) {
+  color: var(--acid);
+  transform: translateY(-2px);
+}
+.site-header nav a:is(:hover, :focus-visible)::after {
+  transform: scaleX(1);
+}
+.site-header :is(.resume-nav, .contact-nav) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #efefe8;
+  transition:
+    background 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease;
+}
+.site-header :is(.resume-nav, .contact-nav):is(:hover, :focus-visible) {
+  background: var(--acid);
+  border-color: var(--acid);
+  color: #192313;
+  transform: translateY(-3px);
+}
+.site-header .contact-nav:is(:hover, :focus-visible) span {
+  color: inherit;
+}
+.site-header :is(.resume-nav, .contact-nav):active {
+  transform: translateY(0);
+}
+.section-title .metal-title {
+  font-weight: 850;
+  font-size: clamp(58px, 8vw, 112px);
+  letter-spacing: -0.045em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: #c5cbd0;
+  background: linear-gradient(
+    180deg,
+    #fff 8%,
+    #e8ecee 23%,
+    #969fa8 49%,
+    #eef1f3 52%,
+    #a3acb3 69%,
+    #606b76 94%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 #eef2f580) drop-shadow(0 3px 0 #444c54)
+    drop-shadow(0 8px 6px #0009);
+}
+.skills-experience .keyboard-visual {
+  height: 570px;
+}
+.keyboard-visual .scene-orbit {
+  display: none;
+}
+.keyboard-fallback .skill-icon {
+  width: 36px;
+  height: 36px;
+  color: white;
+}
+.skill-selector .skill-icon {
+  width: 22px;
+  height: 22px;
+}
+.contact-actions .copy-email {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 12px;
+  min-height: 44px;
+  border-radius: 8px;
+}
+.copy-email svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 180ms ease;
+}
+.copy-email:hover svg {
+  transform: translateY(-2px);
+}
+.contact-section :is(a, button):focus-visible {
+  outline-color: #263b18;
+}
+.contact-actions .social-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 599px) {
+  .skills-experience .keyboard-visual {
+    height: 340px;
+  }
+  .section-title .metal-title {
+    font-size: clamp(46px, 12vw, 68px);
+  }
+  .contact-actions .social-buttons a {
+    font-size: 14px;
+    padding: 13px 11px;
+    gap: 9px;
+  }
+  .contact-actions .social-buttons small {
+    font-size: 11px;
+  }
+}
 :root {
   font-family: 'Manrope Variable', sans-serif;
   color: #efefe8;
@@ -1870,7 +1999,7 @@ em {
   border: 1px solid #45493d;
   border-radius: 30px;
   padding: 12px 17px;
-  cursor: not-allowed;
+  cursor: pointer;
 }
 .resume-nav small {
   font-size: 11px;
@@ -2338,13 +2467,6 @@ body:has(.demo-dialog[open]) {
   }
   .resume-nav small {
     display: none;
-  }
-  .resume-nav::after {
-    content: '· soon';
-    font-size: 10px;
-  }
-  html[lang='uk'] .resume-nav::after {
-    content: '· згодом';
   }
   .languages {
     font-size: 11px;

@@ -4,10 +4,12 @@ import { github, type Lang } from '../../data/workspace';
 export default function ContactLinks({ lang }: { lang: Lang }) {
   const uk = lang === 'uk';
   const [status, setStatus] = useState('');
+  const [copied, setCopied] = useState(false);
   const email = 'aa20062019aa@gmail.com';
   async function copy() {
     try {
       await navigator.clipboard.writeText(email);
+      setCopied(true);
       setStatus(uk ? 'Адресу скопійовано' : 'Email address copied');
     } catch {
       setStatus(
@@ -18,13 +20,18 @@ export default function ContactLinks({ lang }: { lang: Lang }) {
   return (
     <div className="contact-actions">
       <div className="social-buttons">
-        <a href={`mailto:${email}`} title={email}>
+        <a
+          href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}`}
+          target="_blank"
+          rel="noreferrer"
+          title={uk ? 'Написати лист у Gmail' : 'Compose an email in Gmail'}
+        >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <rect x="3" y="5" width="18" height="14" rx="3" />
             <path d="m3 7 9 6 9-6" />
           </svg>
           <span>
-            Email<small>{uk ? 'Відкрити пошту' : 'Open mail app'}</small>
+            Email<small>{uk ? 'Написати у Gmail' : 'Compose in Gmail'}</small>
           </span>
         </a>
         <a href="https://t.me/berez0vskyi" target="_blank" rel="noreferrer">
@@ -44,9 +51,39 @@ export default function ContactLinks({ lang }: { lang: Lang }) {
             GitHub<small>{uk ? 'Код і проєкти' : 'Code & projects'}</small>
           </span>
         </a>
+        <a
+          href="https://www.linkedin.com/in/andrew-berezovskyi-83131a397/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="3" />
+            <path d="M7.5 10v7M11 17v-7m0 3a3 3 0 0 1 6 0v4" />
+            <circle cx="7.5" cy="7" r=".6" fill="currentColor" />
+          </svg>
+          <span>
+            LinkedIn
+            <small>{uk ? 'Професійний профіль' : 'Let’s connect'}</small>
+          </span>
+        </a>
       </div>
-      <button className="copy-email" onClick={copy}>
-        {email} <span>{uk ? 'Копіювати' : 'Copy'}</span>
+      <button
+        className="copy-email"
+        onClick={copy}
+        aria-label={uk ? `Копіювати email: ${email}` : `Copy email: ${email}`}
+        title={uk ? 'Копіювати адресу' : 'Copy email address'}
+      >
+        {email}
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          {copied ? (
+            <path d="m5 12 4 4L19 6" />
+          ) : (
+            <>
+              <rect x="8" y="8" width="12" height="13" rx="2" />
+              <path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+            </>
+          )}
+        </svg>
       </button>
       <span className="copy-status" role="status">
         {status}
