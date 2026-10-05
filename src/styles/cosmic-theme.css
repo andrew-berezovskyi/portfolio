@@ -1,0 +1,311 @@
+/* The portfolio's outer shell follows one restrained cosmic palette.
+   Project simulations keep their own colors because they represent other apps. */
+:root {
+  color-scheme: dark;
+  color: #f3f0fa;
+  background: #16151d;
+  --muted: #b9b4c6;
+  --line: #e8e1ff26;
+  --acid: #bba8ee;
+  --cosmic-panel: #23212c;
+  --cosmic-deep: #16151d;
+  --cosmic-text: #f3f0fa;
+}
+
+::selection {
+  background: #bba8ee;
+  color: #1d1728;
+}
+
+body {
+  background: var(--cosmic-deep);
+}
+
+.site-header {
+  background: #1a1924f0;
+  border-color: var(--line);
+}
+
+.site-header nav a,
+.site-header :is(.resume-nav, .contact-nav) {
+  color: var(--cosmic-text);
+}
+
+.site-header :is(.resume-nav, .contact-nav) {
+  border-color: #a89ac064;
+  background: #292633a8;
+}
+
+.site-header :is(.resume-nav, .contact-nav):is(:hover, :focus-visible) {
+  color: #1b1725;
+  background: var(--acid);
+  border-color: var(--acid);
+}
+
+.languages {
+  color: #aaa3bd;
+}
+
+.languages [aria-current] {
+  color: var(--cosmic-text);
+}
+
+.hero {
+  background-color: #14131d;
+  background-image:
+    linear-gradient(90deg, #15141ebd 0%, #15141e9c 42%, #15141ec7 100%),
+    linear-gradient(0deg, #16151d 0%, transparent 30%), var(--cosmos-image);
+  background-position:
+    center,
+    center,
+    center 46%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hero h1,
+.hero-intro strong {
+  color: var(--cosmic-text);
+}
+
+.hero .eyebrow {
+  color: #d8d1e8;
+}
+
+.hero-key {
+  color: #271d3c;
+  background: linear-gradient(132deg, #d9ccf7 3%, #af97e1 53%, #8d76bc);
+  box-shadow:
+    5px 10px 0 #6c568f,
+    10px 22px 0 #4d3f68,
+    20px 48px 60px #080610a8,
+    inset 0 2px 3px #ffffffb3;
+}
+
+.round-link {
+  border-color: #c6b5ed78;
+  background: #262332bb;
+}
+
+.round-link:hover,
+.round-link:focus-visible {
+  color: #21172f;
+  background: var(--acid);
+  border-color: var(--acid);
+}
+
+.skills-section {
+  background:
+    radial-gradient(ellipse at 18% 35%, #775c9c1c, transparent 46%),
+    radial-gradient(ellipse at 80% 72%, #45618417, transparent 39%), #1c1a25;
+}
+
+.work-section {
+  background:
+    radial-gradient(ellipse at 88% 14%, #79668c1a, transparent 40%),
+    var(--cosmic-panel);
+}
+
+.about-section {
+  background:
+    radial-gradient(ellipse at 12% 90%, #634c811c, transparent 45%), #1b1923;
+}
+
+.section-title h2,
+.about-grid h2 {
+  color: var(--cosmic-text);
+  font-size: clamp(44px, 5.4vw, 78px);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.1;
+  text-transform: none;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  filter: none;
+  text-shadow: none;
+}
+
+.section-title h2 em,
+.about-grid h2 em {
+  color: #bcb3d2;
+  font-style: normal;
+}
+
+.section-kicker,
+.section-title > p,
+.about-grid .muted,
+.hero-aside,
+.hero-intro p {
+  color: var(--muted);
+}
+
+.keyboard-fallback > div {
+  background: #15131e;
+  box-shadow:
+    0 14px 0 #0b0a10,
+    0 40px 80px #05040b99;
+}
+
+.scene-caption,
+.skill-index {
+  color: #aca4be;
+}
+
+.skill-selector button {
+  color: #dbd6e4;
+  background: #2a2735;
+  border-color: #c4b6de36;
+}
+
+.skill-selector button[aria-pressed='true'],
+.skill-selector button:hover {
+  background: #373146;
+  color: #fff;
+}
+
+.project-tabs button {
+  color: #bcb5ca;
+}
+
+.laptop-lid {
+  border-color: #777181;
+  background: linear-gradient(135deg, #494450, #15151d 35%, #312d3b);
+}
+
+.laptop-base {
+  background: linear-gradient(#c5c0ca, #817a87 40%, #3e3944);
+}
+
+.expand-demo {
+  color: #e5d9ff;
+  background: #302b3d;
+  border-color: #9986bd;
+}
+
+.expand-demo:hover,
+.expand-demo:focus-visible {
+  background: #493d61;
+}
+
+.demo-dialog,
+.demo-dialog > header {
+  background: #211e2b;
+  border-color: #8b7aa4;
+  color: var(--cosmic-text);
+}
+
+.demo-dialog::backdrop {
+  background: #0e0b16e8;
+}
+
+.demo-dialog header p,
+.dialog-note {
+  color: #d1c9dc;
+}
+
+.dialog-note a {
+  color: #d2bcff;
+}
+
+.certificate-card {
+  border-color: #b6a6cf54;
+  background: linear-gradient(115deg, #302a3d, #211e2b 70%);
+}
+
+.certificate-card:hover {
+  border-color: #c8b4f0;
+}
+
+.credential-art {
+  color: #302a3d;
+  background: #eeeaf4;
+  border-color: #c9bfd8;
+}
+
+.credential-symbol > span {
+  color: #7964a3;
+}
+
+.credential-rule {
+  background: #a79ab9;
+}
+
+.contact-section {
+  color: var(--cosmic-text);
+  background-color: #201c2b;
+  background-image:
+    linear-gradient(90deg, #211c2be8, #211c2be0), var(--cosmos-image);
+  background-position:
+    center,
+    center bottom;
+  background-size: cover;
+}
+
+.contact-section .section-kicker {
+  color: #c9bfdc;
+  border-color: #e8e1ff3b;
+}
+
+.contact-section .availability i {
+  background: var(--acid);
+  box-shadow: 0 0 14px #c4b2ef7a;
+}
+
+.contact-section h2 {
+  color: var(--cosmic-text);
+  font-weight: 600;
+}
+
+.contact-bottom p {
+  color: #ded6ea;
+}
+
+.social-buttons a {
+  color: var(--cosmic-text);
+  border-color: #bdaddc85;
+  background: #332d4280;
+}
+
+.social-buttons a:hover,
+.social-buttons a:focus-visible {
+  color: #221a30;
+  background: #cbb9f1;
+  border-color: #cbb9f1;
+}
+
+.copy-email {
+  color: #f3ecff;
+}
+
+.contact-section :is(a, button):focus-visible {
+  outline-color: #d8c5ff;
+}
+
+.site-footer {
+  color: #b7afc8;
+  background: #15131d;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 599px) {
+  .hero {
+    background-position:
+      center,
+      center,
+      34% center;
+  }
+
+  .hero-key {
+    box-shadow:
+      3px 6px 0 #6c568f,
+      6px 14px 0 #4d3f68,
+      12px 25px 40px #080610a8,
+      inset 0 2px 3px #ffffffb3;
+  }
+
+  .contact-section {
+    background-position:
+      center,
+      32% bottom;
+  }
+}

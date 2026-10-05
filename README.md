@@ -24,9 +24,11 @@ The terminal prints the local URL (usually `http://localhost:4321/portfolio/`). 
 - `src/components/Portfolio.astro` — static sections and translated copy.
 - `src/components/interactive/` — keyboard and project demonstrations.
 - `src/data/workspace.ts` — technologies, featured projects and source links.
-- `src/styles/workspace.css` — responsive styles and reduced-motion handling.
+- `src/styles/workspace.css` — responsive layout and component styles.
+- `src/styles/cosmic-theme.css` — shared color palette and cosmic backgrounds.
 - `public/` — static assets.
-- `public/andrew-berezovskyi-cv.pdf` — the original supplied CV, downloaded from the header in both languages. Replace this file to update the CV.
+- `public/andrew-berezovskyi-cv.pdf` — the bilingual CV downloaded from the header in both languages. Replace this file to update the CV.
+- `public/cosmic-nebula.png` — original generated background artwork.
 
 Technology marks use selectively bundled [Simple Icons](https://simpleicons.org/) SVG paths. The C# key uses a typographic label. Contact links include Gmail compose (requires a Gmail account), Telegram, GitHub and LinkedIn; the email address can also be copied for use with any mail provider.
 
@@ -35,5 +37,11 @@ The laptop demos are interactive simulations, clearly labeled as such. They do n
 ## Deploy
 
 `npm run build` writes static output to `dist/`. Deployment is handled by `.github/workflows/deploy.yml` using the official Astro action and GitHub Pages.
+
+## Security and public data
+
+This is a static GitHub Pages site. It has no server, database or private runtime secrets. The email address and profile links are intentionally public contact information. Never place API keys, passwords or private data in `src/`, `public/`, or variables prefixed with `PUBLIC_`: anything shipped to the browser can be read by visitors. If a future feature needs secrets, implement it in a separate server-side service and call that service from this site.
+
+Local `.env` files are ignored by Git. Deployment uses narrowly scoped permissions and runs `npm audit` before publishing. Contact actions open external services or copy the public address; this site does not store or submit messages.
 
 The previous design is preserved in `backup/pre-redesign-2026-09-29`.

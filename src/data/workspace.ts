@@ -130,7 +130,7 @@ export const projects = [
     title: 'The Hotel Kyiv',
     category: 'DESKTOP / WEB',
     number: '01',
-    color: '#b5d1a4',
+    color: '#bba8ee',
     repo: 'hotel-management-system-software',
     stack: ['C#', '.NET 8', 'SQLite', 'WinForms'],
     description: [
