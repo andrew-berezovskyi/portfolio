@@ -131,6 +131,10 @@ body {
   font-style: normal;
 }
 
+.about-grid h2 {
+  font-size: clamp(35px, 4vw, 55px);
+}
+
 .section-kicker,
 .section-title > p,
 .about-grid .muted,
